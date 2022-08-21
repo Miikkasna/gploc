@@ -5,10 +5,10 @@ import numpy as np
 
 import gym
 from gym import spaces
-from gym.envs.box2d.car_dynamics import Car
+from car_dynamics import Car
 from gym.error import DependencyNotInstalled, InvalidAction
 from gym.utils import EzPickle
-from gym.utils.renderer import Renderer
+from renderer import Renderer
 
 try:
     import Box2D
@@ -38,8 +38,8 @@ SCALE = 6.0  # Track scale
 TRACK_RAD = 900 / SCALE  # Track is heavily morphed circle with this radius
 PLAYFIELD = 2000 / SCALE  # Game over boundary
 FPS = 50  # Frames per second
-ZOOM = 2.7  # Camera zoom
-ZOOM_FOLLOW = True  # Set to False for fixed view (don't use zoom)
+ZOOM = 0.6#2.7  # Camera zoom
+ZOOM_FOLLOW = False  # Set to False for fixed view (don't use zoom)
 
 
 TRACK_DETAIL_STEP = 21 / SCALE
@@ -697,7 +697,7 @@ class CarRacing(gym.Env, EzPickle):
             self.isopen = False
             pygame.quit()
 
-
+positions = []
 if __name__ == "__main__":
     a = np.array([0.0, 0.0, 0.0])
 
@@ -739,11 +739,16 @@ if __name__ == "__main__":
             register_input()
             s, r, terminated, truncated, info = env.step(a)
             total_reward += r
-            if steps % 200 == 0 or terminated or truncated:
+            x, y = env.car.hull.position
+            positions.append([steps, x, y,])
+            if terminated or truncated:
                 print("\naction " + str([f"{x:+0.2f}" for x in a]))
                 print(f"step {steps} total_reward {total_reward:+0.2f}")
+            if steps % 100 == 0:
+                print(env.car.hull.position)
             steps += 1
             isopen = env.render()
             if terminated or truncated or restart or isopen is False:
+                np.save('positions.npy', np.array(positions))
                 break
     env.close()
