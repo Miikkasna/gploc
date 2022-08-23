@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 #plt.rcParams['axes.facecolor'] = 'black'
-data = np.load('data.npy', allow_pickle=True)
+data = np.load('real_position.npy', allow_pickle=True)
 plt.plot(data[:, 2], data[:, 3], 'grey')
 
 f_sim = 50
