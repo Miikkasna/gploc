@@ -9,6 +9,6 @@ while True:
         filename = 'animate/{}.png'.format(i)
         img = cv2.imread(filename)
         cv2.imshow('mahMovie', img)
-        cv2.waitKey(300)
+        cv2.waitKey(100)
 
 cv2.destroyAllWindows()
