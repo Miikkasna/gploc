@@ -4,11 +4,11 @@ This repository holds Gaussian Process implementation for a localization task. T
 
 The structure of the dataset is following:
 
-real_position.npy : 4 features, [time, speed (m/s), x-position (m), y-position (m)]
+real_position.npy : 4 features, [time (s), speed (m/s), x-position (m), y-position (m)]
 
-tof_1hz.npy : 4 features, [time, speed (m/s), x-position (m), y-position (m)]
+tof_1hz.npy : 4 features, [time (s), speed (m/s), x-position (m), y-position (m)]
 
-rssi_1hz.npy : 4 features, [time, speed (m/s), x-position (m), y-position (m)]
+rssi_1hz.npy : 4 features, [time (s), speed (m/s), x-position (m), y-position (m)]
 
 
 Data visualization
